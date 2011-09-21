@@ -178,14 +178,14 @@ final class Social {
 		return apply_filters('social_lazy_load_avatars', false);
 	}
 
-	/**
-	 * Enables the lazy loading of avatars.
-	 *
-	 * @return bool
-	 */
-	public function social_lazy_load_avatars_test() {
-		return true;
-	}
+//	/**
+//	 * Enables the lazy loading of avatars.
+//	 *
+//	 * @return bool
+//	 */
+//	public function social_lazy_load_avatars_test() {
+//		return true;
+//	}
 
 	/**
 	 * @var  bool  is Social enabled?
