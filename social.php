@@ -169,6 +169,25 @@ final class Social {
 	}
 
 	/**
+	 * Lazy load avatars?
+	 *
+	 * @static
+	 * @return bool
+	 */
+	public static function lazy_load_avatars() {
+		return apply_filters('social_lazy_load_avatars', false);
+	}
+
+	/**
+	 * Enables the lazy loading of avatars.
+	 *
+	 * @return bool
+	 */
+	public function social_lazy_load_avatars_test() {
+		return true;
+	}
+
+	/**
 	 * @var  bool  is Social enabled?
 	 */
 	private $_enabled = false;
@@ -1257,6 +1276,7 @@ add_filter('get_avatar', array($social, 'get_avatar'), 10, 5);
 add_filter('register', array($social, 'register'));
 add_filter('loginout', array($social, 'loginout'));
 add_filter('post_row_actions', array($social, 'post_row_actions'), 10, 2);
+add_filter('social_lazy_load_avatars', array($social, 'social_lazy_load_avatars_test'));
 
 // Service filters
 add_filter('social_auto_load_class', array($social, 'auto_load_class'));

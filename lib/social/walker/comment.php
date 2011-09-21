@@ -8,6 +8,16 @@
 final class Social_Walker_Comment extends Walker_Comment {
 
 	/**
+	 * Enables the lazy loading.
+	 */
+	public function __construct() {
+		if (Social::lazy_load_avatars() and !is_admin()) {
+			require SOCIAL_PATH.'lib/lazy-avatars/lazy-avatars.php';
+			do_action('enable_lazy_avatars', true);
+		}
+	}
+
+	/**
 	 * @see Walker::start_lvl()
 	 * @since 2.7.0
 	 *
