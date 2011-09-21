@@ -167,7 +167,7 @@ final class Social {
 	public static function log($message, array $args = null) {
 		Social::$log->write($message, $args);
 	}
-
+	
 	/**
 	 * Lazy load avatars?
 	 *
