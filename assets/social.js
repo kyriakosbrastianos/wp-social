@@ -219,3 +219,11 @@ function reloadSocialHTML(saved) {
 		}
 	});
 })(jQuery);
+
+/**
+ * Lazy Avatars
+ *
+ * @author Janis Elsts (http://w-shadow.com/blog/)
+ * @version 1.0
+ */
+(function(f){var e=document,g=e.documentElement,d="addEventListener",a="scroll",b=false;if(f[d]){f[d]("load",c,b)}function c(){var i=e.getElementsByClassName("lazy-avatar pending");function j(l){var k=e.createElement("img");k.src=l.getAttribute("data-avatar-src");k.width=l.getAttribute("data-avatar-width");k.height=l.getAttribute("data-avatar-height");l.appendChild(k);l.className=l.className.replace(/\bpending\b/,"")}function h(){var l=0;while(l<i.length){var k=f.pageYOffset,n=i[l].offsetTop;var m=((n+i[l].offsetHeight>=k)&&(n<=k+g.clientHeight));if(m){j(i[l])}else{l++}}if(!l){window.removeEventListener(a,h,b)}}f[d](a,h,b);h()}})(window);

@@ -19,7 +19,7 @@ final class LazyAvatars {
 	public function __construct() {
 		add_action('enable_lazy_avatars', array($this, 'enable'));
 		add_filter('get_avatar', array($this, 'makeAvatarLazy'), 30, 5);
-		add_action('wp_footer', array($this, 'footer'));
+		//add_action('wp_footer', array($this, 'footer'));
 	}
 
 	/**
@@ -84,38 +84,38 @@ final class LazyAvatars {
 		}
 	}
 
-	/**
-	 * Adds the assets to the footer.
-	 *
-	 * @return void
-	 */
-	public function footer() {
-		if ($this->wasEnabled and $this->wasUsed) {
-			$this->printStyle();
-			$this->printScript();
-		}
-	}
-
-	/**
-	 * Prints the JavaScript content.
-	 *
-	 * @return void
-	 */
-	public function printScript() {
-		$scriptFile = dirname(__FILE__).'/js/avatar-loader.min.js';
-		echo '<script>';
-		readfile($scriptFile);
-		echo '</script>';
-	}
-
-	/**
-	 * Prints the CSS content.
-	 *
-	 * @return void
-	 */
-	public function printStyle() {
-		echo '<style>.lazy-avatar { display: inline-block }</style>';
-	}
+//	/**
+//	 * Adds the assets to the footer.
+//	 *
+//	 * @return void
+//	 */
+//	public function footer() {
+//		if ($this->wasEnabled and $this->wasUsed) {
+//			$this->printStyle();
+//			$this->printScript();
+//		}
+//	}
+//
+//	/**
+//	 * Prints the JavaScript content.
+//	 *
+//	 * @return void
+//	 */
+//	public function printScript() {
+//		$scriptFile = dirname(__FILE__).'/js/avatar-loader.min.js';
+//		echo '<script>';
+//		readfile($scriptFile);
+//		echo '</script>';
+//	}
+//
+//	/**
+//	 * Prints the CSS content.
+//	 *
+//	 * @return void
+//	 */
+//	public function printStyle() {
+//		echo '<style>.lazy-avatar { display: inline-block }</style>';
+//	}
 }
 
 $ws_lazy_avatars = new LazyAvatars();
