@@ -886,3 +886,13 @@ override submit styles in TwentyEleven theme */
 	clear: both;
 	visibility: hidden;
 }
+#social_running_aggregation.pending-count img {
+	display: none;
+}
+
+/**
+ * Lazy Avatars
+ */
+.lazy-avatar {
+    display: inline-block;
+}
