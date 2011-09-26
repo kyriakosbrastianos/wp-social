@@ -44,27 +44,27 @@ final class LazyAvatars {
 			// Extract CSS classes
 			$classes = '';
 			if (preg_match('@class=(["\'])([^"\']+)\1?@i', $avatar, $matches)) {
-				$classes = ' ' . esc_attr($matches[2]);
+				$classes = ' '.$matches[2];
 			}
 
 			// Extract width
 			$width = '';
 			if (preg_match('@width=(["\'])([^"\']+)\1?@i', $avatar, $matches)) {
-				$width = esc_attr($matches[2]);
+				$width = $matches[2];
 			}
 
 			// Extract height
 			$height = '';
 			if (preg_match('@height=(["\'])([^"\']+)\1?@i', $avatar, $matches)) {
-				$height = esc_attr($matches[2]);
+				$height = $matches[2];
 			}
 
 			$avatar = sprintf(
 				'<div class="lazy-avatar pending%s" data-avatar-src="%s" data-avatar-width="%s" data-avatar-height="%s"></div>',
-				$classes,
-				$src,
-				$width,
-				$height
+				esc_attr($classes),
+				esc_attr($src),
+				esc_attr($width),
+				esc_attr($height)
 			);
 			$this->wasUsed = true;
 		}
