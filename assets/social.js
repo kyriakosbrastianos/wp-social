@@ -298,9 +298,52 @@
 })(jQuery);
 
 /**
- * Lazy Avatars
+ * This plugin was ported over as a jQuery plugin from Janis Elsts' Lazy Avatars Plugin. {@link http://w-shadow.com/blog/)
  *
- * @author Janis Elsts (http://w-shadow.com/blog/)
+ * @author Crowd Favorite
  * @version 1.0
  */
-(function(f){var e=document,g=e.documentElement,d="addEventListener",a="scroll",b=false;if(f[d]){f[d]("load",c,b)}function c(){var i=e.getElementsByClassName("lazy-avatar pending");function j(l){var k=e.createElement("img");k.src=l.getAttribute("data-avatar-src");k.width=l.getAttribute("data-avatar-width");k.height=l.getAttribute("data-avatar-height");l.appendChild(k);l.className=l.className.replace(/\bpending\b/,"")}function h(){var l=0;while(l<i.length){var k=f.pageYOffset,n=i[l].offsetTop;var m=((n+i[l].offsetHeight>=k)&&(n<=k+g.clientHeight));if(m){j(i[l])}else{l++}}if(!l){window.removeEventListener(a,h,b)}}f[d](a,h,b);h()}})(window);
+(function($){
+    var methods = {
+        init: function(){
+            $(document).bind('scroll', methods.checkVisibility);
+            methods.checkVisibility();
+        },
+        checkVisibility: function() {
+            var $pendingAvatars = $('.lazy-avatar.pending');
+            $pendingAvatars.each(function(i){
+                var viewportTop = window.pageYOffset, avatarTop = $(this).offset().top;
+                var inView = ((avatarTop + $(this).height() >= viewportTop) && (avatarTop <= viewportTop + $(document).height()));
+
+                if (inView) {
+                    methods.load($(this));
+                }
+            });
+        },
+        load: function($avatar) {
+            var $img = $('img');
+
+            var data = $avatar.data();
+            for (var key in data) {
+                $img.attr(key, data[key]);
+            }
+
+            $avatar.append($img).removeClass('pending');
+        }
+    };
+
+    $.fn.avatarLoader = function(method){
+        if (methods[method]) {
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+        }
+        else if (typeof method === 'object' || !method) {
+            return methods.init.apply(this, arguments);
+        }
+        else {
+            $.error('Method '+method+' does no exist on jQuery.avatarLoader');
+        }
+    };
+
+    // Initialize
+    $().avatarLoader();
+})(jQuery);
