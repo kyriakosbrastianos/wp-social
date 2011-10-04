@@ -60,7 +60,7 @@ final class LazyAvatars {
 			}
 
 			$avatar = sprintf(
-				'<div class="lazy-avatar pending%s" data-avatar-src="%s" data-avatar-width="%s" data-avatar-height="%s"></div>',
+				'<div class="lazy-avatar pending%s" data-src="%s" data-width="%s" data-height="%s"></div>',
 				esc_attr($classes),
 				esc_attr($src),
 				esc_attr($width),

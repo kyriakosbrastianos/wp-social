@@ -175,7 +175,7 @@ final class Social {
 	 * @return bool
 	 */
 	public static function lazy_load_avatars() {
-		return apply_filters('social_lazy_load_avatars', false);
+		return apply_filters('social_lazy_load_avatars', true);
 	}
 
 	/**
