@@ -20,7 +20,7 @@ final class Social {
 	/**
 	 * @var  string  $api_url  URL of the API
 	 */
-	public static $api_url = 'https://sopresto.mailchimp.com/';
+	public static $api_url = 'https://soprestodev.mailchimp.com/dev.php/';
 
 	/**
 	 * @var  string  $plugins_url  Path to the Social Plugin's directory.  Set in constructor
