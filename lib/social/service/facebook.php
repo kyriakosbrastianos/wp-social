@@ -63,7 +63,7 @@ final class Social_Service_Facebook extends Social_Service implements Social_Int
 		if (!empty($_POST['comment_parent'])) {
 			// TODO I don't really like using globals, look for a better way to do this...
 			global $comment;
-			
+
 			$status_id = get_comment_meta($_POST['comment_parent'], 'social_status_id', true);
 			if (!empty($status_id)) {
 				$request = $this->request($account, $status_id.'/comments', array(
