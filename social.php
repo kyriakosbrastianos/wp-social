@@ -1220,7 +1220,7 @@ final class Social {
 	 * @param  int  $comment_ID
 	 */
 	public function comment_post($comment_ID) {
-		global $wpdb;
+		global $wpdb, $comment;
 
 		$comment = get_comment($comment_ID);
 		$services = $this->services();
