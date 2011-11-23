@@ -141,6 +141,10 @@ final class Social_Aggregation_Log {
 	public function save($manual = false) {
 		$this->_log[$this->_timestamp]->manual = $manual;
 		update_post_meta($this->_post_id, '_social_aggregation_log', $this->_log);
+
+		Social::log('Saving aggregation log. --- Manual: :manual', array(
+			'manual' => ($manual ? 'true' : 'false')
+		));
 	}
 
 	/**

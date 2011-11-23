@@ -15,7 +15,9 @@
 <div class="social-meta-box-block cf-clearfix">
 	<h4>
 		<?php _e('Manual Refresh', 'social'); ?>
+		<?php if (Social::option('fetch_comments') != '2'): ?>
 		<span id="social-next-run">(<?php echo sprintf(__('Next automatic run in <span>%s</span>', 'social'), $next_run); ?>)</span>
+		<?php endif; ?>
 	</h4>
 
 	<p class="submit" style="clear:both;float:none;padding:0;">
