@@ -70,6 +70,7 @@ final class Social {
 		'system_cron_api_key' => null,
 		'fetch_comments' => '1',
 		'broadcast_by_default' => '0',
+		'disable_comment_display' => '1',
 	);
 
 	/**
@@ -1247,7 +1248,7 @@ final class Social {
 	public function comments_template() {
 		global $post;
 
-		if (!(is_singular() and (have_comments() or $post->comment_status == 'open'))) {
+		if (!(is_singular() and (have_comments() or $post->comment_status == 'open')) or Social::option('disable_comment_display') != '1') {
 			return;
 		}
 

@@ -187,6 +187,28 @@
 				</td>
 			</tr>
 			<tr>
+				<th>
+					<label for="social_disable_comment_display_yes"><?php _e('Custom comment display', 'social'); ?></label>
+				</th>
+				<td>
+					<p style="margin-top:0"><?php _e('Enable the custom comment display on your theme?', 'social'); ?></p>
+					<ul>
+						<li>
+							<label for="debug_mode_no">
+								<input type="radio" name="social_disable_comment_display" id="social_disable_comment_display_yes" value="1"<?php echo Social::option('disable_comment_display') == '1' ? ' checked="checked"' : ''; ?> />
+								<?php _e('Yes', 'social'); ?>
+							</label>
+						</li>
+						<li>
+							<label for="debug_mode_yes">
+								<input type="radio" name="social_disable_comment_display" id="social_disable_comment_display_no" value="0"<?php echo Social::option('disable_comment_display') != '1' ? ' checked="checked"' : ''; ?> />
+								<?php _e('No', 'social'); ?>
+							</label>
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
 				<th><?php _e('Twitter @anywhere', 'social'); ?></th>
 				<td>
 					<label for="social_twitter_anywhere_api_key"><?php _e('Consumer API Key', 'social'); ?></label><br />

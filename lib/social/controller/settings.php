@@ -28,6 +28,13 @@ final class Social_Controller_Settings extends Social_Controller {
 				delete_option('social_broadcast_by_default');
 			}
 
+			if (isset($_POST['social_disable_comment_display'])) {
+				Social::option('disable_comment_display', $_POST['social_disable_comment_display']);
+			}
+			else {
+				Social::option('disable_comment_display', '0');
+			}
+
 			// Store the default accounts
 			$accounts = array();
 			if (is_array($this->request->post('social_default_accounts'))) {
