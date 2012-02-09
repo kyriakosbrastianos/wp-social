@@ -144,6 +144,7 @@ final class Social_Service_Twitter extends Social_Service implements Social_Inte
 							'count' => 200,
 						));
 						if ($response !== false and is_array($response->body()->response) and count($response->body()->response)) {
+							$reply_to_reply = array();
 							foreach ($response->body()->response as $result) {
 								if ($this->is_original_broadcast($post, $result->id)) {
 									continue;
@@ -156,8 +157,15 @@ final class Social_Service_Twitter extends Social_Service implements Social_Inte
 									Social_Aggregation_Log::instance($post->ID)->add($this->_key, $result->id, 'reply', true, $data);
 									continue;
 								}
+								// Reply to a reply?
+								if (in_array($result->in_reply_to_status_id, $post->aggregated_ids[$this->_key])) {
+									if (!isset($reply_to_reply[$result->in_reply_to_status_id])) {
+										$reply_to_reply[$result->in_reply_to_status_id] = array();
+									}
+									$reply_to_reply[$result->in_reply_to_status_id][] = $result->id;
+								}
 								// not a reply to a broadcast
-								if (!isset($broadcasted_ids[$result->in_reply_to_status_id])) {
+								else if (!isset($broadcasted_ids[$result->in_reply_to_status_id])) {
 									continue;
 								}
 								Social_Aggregation_Log::instance($post->ID)->add($this->_key, $result->id, 'reply', false, $data);
@@ -172,6 +180,26 @@ final class Social_Service_Twitter extends Social_Service implements Social_Inte
 									'in_reply_to_status_id' => $result->in_reply_to_status_id,
 									'raw' => $result,
 								);
+							}
+
+							// Loop through the extra replies and set their comment_parent values
+							if (count($reply_to_reply)) {
+								$status_ids = implode(',', array_keys($reply_to_reply));
+								global $wpdb;
+
+								$results = $wpdb->get_results("
+									SELECT comment_id, meta_value
+									  FROM $wpdb->commentmeta
+									 WHERE meta_key = 'social_status_id'
+									   AND meta_value IN($status_ids)
+								");
+								foreach ($results as $result) {
+									foreach ($post->results[$this->_key] as $tweet_id => $data) {
+										if (isset($data->in_reply_to_status_id) and $data->in_reply_to_status_id == $result->meta_value) {
+											$post->results[$this->_key][$tweet_id]->comment_parent = $result->comment_id;
+										}
+									}
+								}
 							}
 						}
 					}
@@ -213,6 +241,7 @@ final class Social_Service_Twitter extends Social_Service implements Social_Inte
 						'comment_date_gmt' => gmdate('Y-m-d H:i:s', strtotime($result->created_at)),
 						'comment_author_IP' => $_SERVER['SERVER_ADDR'],
 						'comment_agent' => 'Social Aggregator',
+						'comment_parent' => (isset($result->comment_parent) ? $result->comment_parent : '0'),
 					);
 
 					if ($skip_approval) {
